@@ -1,14 +1,13 @@
-# Vérification et Validation
+# Validation and Verification: Lab #1 
 
-## Responsable de module
+## Exercices
 
-- Benoit Combemale (benoit.combemale@irisa.fr)
+You can access the exercices [here](sujet.md)
 
-## Encadrants
+## Lab implementation
 
-- Benoit Combemale (benoit.combemale@irisa.fr)
-- Gwendal Jouneaux (gwendal.jouneaux@irisa.fr)
+You can realize this lab by group of 1 or 2. 
 
-## Sujet du TP
+## Deliverable and evaluation
 
-Accédez au sujet du TP en clicant [ici](sujet.md)
+We will not mark this lab. However, realizing this lab will help you for the final evaluation, and you can have a feedback on your work by forking this repository and submitting a pull request.
