@@ -1,4 +1,4 @@
-# Validation and Verification: Lab #1 
+# Validation and Verification: Practical Session #1
 
 ## Exercices
 
