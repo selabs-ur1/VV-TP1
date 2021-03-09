@@ -26,6 +26,26 @@ source : https://www.eveonline.com/article/about-the-boot.ini-issue
 
 2. Apache Commons projects are known for the quality of their code and development practices. They use dedicated issue tracking systems to discuss and follow the evolution of bugs and new features. The following link https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-769?filter=doneissues points to the issues considered as solved for the Apache Commons Collections project. Among those issues find one that corresponds to a bug that has been solved. Classify the bug as local or global. Explain the bug and the solution. Did the contributors of the project add new tests to ensure that the bug is detected if it reappears in the future?
 
+The following answer is about this issue : https://issues.apache.org/jira/projects/COLLECTIONS/issues/COLLECTIONS-709?filter=doneissues
+
+The bug seems to be local as it is relative to a mistake in a method implementation and can be highlighted with a simple unit test.
+
+The bug is that removing the last element of their MultiSet implementation doesn't set the collection size to 0.
+
+Note : What is a multiset : 
+> There are two main ways of looking at Multiset :
+This is like an ArrayList<E> without an ordering constraint i.e, ordering does not matter.
+This is like a Map<E, Integer>, with elements and counts.
+The total number of occurrences of an element in a multiset is called the count of that element.
+
+The reason is a simple miss in the remove method, when removing the last element of an item (when number to remove >= element actual count) the count of the item should be set to 0 which was not done.
+
+In the PR, the author also added a Junit test which reproduces the scenario of the bug so it can be tracked in the future.
+
+https://github.com/apache/commons-collections/pull/66/commits/8e2842abdd1584c4d23c62a11c9fc2277cf4d124
+
+---
+
 3. Netflix is famous, among other things we love, for the popularization of *Chaos Engineering*, a fault-tolerance verification technique. The company has implemented protocols to test their entire system in production by simulating faults such as a server shutdown. During these experiments they evaluate the system's capabilities of delivering content under different conditions. The technique was described in [a paper](https://arxiv.org/ftp/arxiv/papers/1702/1702.05843.pdf) published in 2016. Read the paper and briefly explain what are the concrete experiments they perform, what are the requirements for these experiments, what are the variables they observe and what are the main results they obtained. Is Netflix the only company performing these experiments? Speculate how these experiments could be carried in other organizations in terms of the kind of experiment that could be performed and the system variables to observe during the experiments.
 
 4. [WebAssembly](https://webassembly.org/) has become the fourth official language supported by web browsers. The language was born from a joint effort of the major players in the Web. Its creators presented their design decisions and the formal specification in [a scientific paper](https://people.mpi-sws.org/~rossberg/papers/Haas,%20Rossberg,%20Schuff,%20Titzer,%20Gohman,%20Wagner,%20Zakai,%20Bastien,%20Holman%20-%20Bringing%20the%20Web%20up%20to%20Speed%20with%20WebAssembly.pdf) published in 2018. The goal of the language is to be a low level, safe and portable compilation target for the Web and other embedding environments. The authors say that it is the first industrial strength language designed with formal semantics from the start. This evidences the feasibility of constructive approaches in this area. Read the paper and explain what are the main advantages of having a formal specification for WebAssembly. In your opinion, does this mean that WebAssembly implementations should not be tested? 
