@@ -14,7 +14,34 @@ To solve the bug the tests in question have been modified. It is a question of c
 
 3. Netflix is famous, among other things we love, for the popularization of *Chaos Engineering*, a fault-tolerance verification technique. The company has implemented protocols to test their entire system in production by simulating faults such as a server shutdown. During these experiments they evaluate the system's capabilities of delivering content under different conditions. The technique was described in [a paper](https://arxiv.org/ftp/arxiv/papers/1702/1702.05843.pdf) published in 2016. Read the paper and briefly explain what are the concrete experiments they perform, what are the requirements for these experiments, what are the variables they observe and what are the main results they obtained. Is Netflix the only company performing these experiments? Speculate how these experiments could be carried in other organizations in terms of the kind of experiment that could be performed and the system variables to observe during the experiments.
 
+Netflix isn't the only company performing those experiments, Amazon, Google, Microsoft and Facebook are knwon to use Chaos Engineering as well in order to test their services.<br/>
+The engineer pays close attention to the "**steady-state behavior of the system**".<br/>
+A chaos engineering experiment revolves around 4 principles according to Netflix's criteria:
 
+1. <ins>Build a hypothesis around steady-state behavior</ins><br/>What matters the most at Netflix is the **availability** of the services if one shuts down, all the others should still work. A metrics that describes a great steady-state behavior of the system for Netflix is the **SPS** (stream) starts per second which shows how many users at a given second start watching a video. In addition, the number of registrations per second is also a good metrics. If there is no streaming or registration during a well-known peak, it clearly shows an unavailability of those services for the users.
+
+2. <ins>Vary real-world events</ins><br/>Sampling from all the inputs that may happen in reality. Picking up past failure inputs to verify the bugs are fixed and inputs are working fine by now.
+
+3. <ins>Run experiments in production</ins><br/>The whole Netflix software can't be tested before production because it is too huge it is launched as a distributed software, thus it communicates through the Internet which varies every second.
+
+4. <ins>Automate experiments to run continuously</ins><br/>For a constant changing system, it is necessary to automate the experiments so the system can be tested systematically.
+
+* The *Chaos Monkey* strategy is to shut down some virtual machines hosting their services randomly. They need to work only during work hours so the coworkers can react quickly in case there is a failure. *Chaos Monkey* runs continuously during working days.
+* The *Chaos Kong* strategy consists of simulating failures of a part of the cloud services of Amazon covering an entire region ( [Amazon EC2 region](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions) ). *Chaos Kong* is run monthly.
+* *Failure Injection Testing* ( *FIT* ) forces the Netflix services to fail to communicate. The Traffic and Chaos team pays close attention to the system which is attended to "degrade gracefully".
+* When shutting down a whole region, the system is supposed to fallback over a healthy cloud region. The team speculates that the transition should have no impact over the SPS.
+* Inject latency into requests between services instead of cutting the bridge between 2 services.
+* Fail an internal service and see if it can disrupt the global behaior of the system.
+
+To sum up over Chaos Engineering at Netflix:
+
+1. Define metrics to measure the steady-state behavior of the system describing a normal behavior.
+
+2. Assume the steady-state is initially respected in both the control group and experimental group.
+
+3. Input real world events
+
+4. Try to find abnormalities in the metrics between the control and experimental groups.
 
 4. [WebAssembly](https://webassembly.org/) has become the fourth official language supported by web browsers. The language was born from a joint effort of the major players in the Web. Its creators presented their design decisions and the formal specification in [a scientific paper](https://people.mpi-sws.org/~rossberg/papers/Haas,%20Rossberg,%20Schuff,%20Titzer,%20Gohman,%20Wagner,%20Zakai,%20Bastien,%20Holman%20-%20Bringing%20the%20Web%20up%20to%20Speed%20with%20WebAssembly.pdf) published in 2018. The goal of the language is to be a low level, safe and portable compilation target for the Web and other embedding environments. The authors say that it is the first industrial strength language designed with formal semantics from the start. This evidences the feasibility of constructive approaches in this area. Read the paper and explain what are the main advantages of having a formal specification for WebAssembly. In your opinion, does this mean that WebAssembly implementations should not be tested? 
 
