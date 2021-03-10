@@ -48,6 +48,29 @@ https://github.com/apache/commons-collections/pull/66/commits/8e2842abdd1584c4d2
 
 3. Netflix is famous, among other things we love, for the popularization of *Chaos Engineering*, a fault-tolerance verification technique. The company has implemented protocols to test their entire system in production by simulating faults such as a server shutdown. During these experiments they evaluate the system's capabilities of delivering content under different conditions. The technique was described in [a paper](https://arxiv.org/ftp/arxiv/papers/1702/1702.05843.pdf) published in 2016. Read the paper and briefly explain what are the concrete experiments they perform, what are the requirements for these experiments, what are the variables they observe and what are the main results they obtained. Is Netflix the only company performing these experiments? Speculate how these experiments could be carried in other organizations in terms of the kind of experiment that could be performed and the system variables to observe during the experiments.
 
+**Experiments** : randomly selects virtual machine instances that host our production services and terminates
+them, run Failure Injection Testing (FIT) exercises where we cause requests between Netflix services to fail.
+
+Examples :
+- terminate virtual machine instances
+- inject latency into requests between services
+- fail requests between services
+- fail an internal service
+- make an entire Amazon region unavailable (chaos kong)
+(In some cases, you may need to simulate the event instead of inject it)
+
+**Requirements** : fallbacks across machines & regions, replication, engineering designed to handle fails. 
+
+**Variables to observe** : However, "works properly" is too vague as a basis for designing experiments. In our context, the quality attribute we focus on most is availability.
+
+**Main results** : all engineers design their services to handle instance failures as a matter of course.
+
+**Is Netflix the only company performing this ?** : organizations such as Amazon [3], Google [3], Microsoft [4], and Facebook [5], were applying similar techniques to test the resilience of their own systems
+
+**Into other organizations in terms of kind of experiment** : Netflix services use fallbacks to ensure graceful degradation: that failures in non­critical services have a minimal impact on the user experience. For example, consider a service A which makes requests against a caching service that sits in front of service B. if there is a failure in the caching service, then service A can fall back to making a request directly against service B. 
+
+Analyze the habits of users. form hypotheses around how the treatment will affect the steady state of the system. Apply chaos techniques (such as shutting down instances) and then automate these experiments.
+
 4. [WebAssembly](https://webassembly.org/) has become the fourth official language supported by web browsers. The language was born from a joint effort of the major players in the Web. Its creators presented their design decisions and the formal specification in [a scientific paper](https://people.mpi-sws.org/~rossberg/papers/Haas,%20Rossberg,%20Schuff,%20Titzer,%20Gohman,%20Wagner,%20Zakai,%20Bastien,%20Holman%20-%20Bringing%20the%20Web%20up%20to%20Speed%20with%20WebAssembly.pdf) published in 2018. The goal of the language is to be a low level, safe and portable compilation target for the Web and other embedding environments. The authors say that it is the first industrial strength language designed with formal semantics from the start. This evidences the feasibility of constructive approaches in this area. Read the paper and explain what are the main advantages of having a formal specification for WebAssembly. In your opinion, does this mean that WebAssembly implementations should not be tested? 
 
 5.  Shortly after the appearance of WebAssembly another paper proposed a mechanized specification of the language using Isabelle. The paper can be consulted here: https://www.cl.cam.ac.uk/~caw77/papers/mechanising-and-verifying-the-webassembly-specification.pdf. This mechanized specification complements the first formalization attempt from the paper. According to the author of this second paper, what are the main advantages of the mechanized specification? Did it help improving the original formal specification of the language? What other artifacts were derived from this mechanized specification? How did the author verify the specification? Does this new specification removes the need for testing?
