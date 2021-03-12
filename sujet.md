@@ -68,3 +68,4 @@ How did the author verify the specification?
 (page 2/ paragraph 4)
 
 Does this new specification removes the need for testing?
+Obviously no, those validations are a primary step before testing to detect and prevent the most obvious errors, but they don't replace the tests which are necessary to detect more practical stuff like dependencies between classes or infinite loops, infinite recursive methods. Even with a lot of tests, we can't ensure the proper functioning of the project.
