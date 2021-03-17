@@ -3,7 +3,7 @@
 1. Find in news sources a general public article reporting the discovery of a software bug. Describe the bug. If possible, say whether the bug is local or global and describe the failure that manifested its presence. Explain the repercussions of the bug for clients/consumers and the company or entity behind the faulty program. Speculate whether, in your opinion, testing the right scenario would have helped to discover the fault.
 
 Eve Online's bug
-Eve Online's is a space-based MMORPG game published by CCP Games in May 2003. On the 5th of December 2007, they released a patch "Eve Online: Trinity" which caused some big troubles in many computers and made them unable to boot anymore. How an online game broke the boot of windows ? In an article, Dr. Erlendur S (software engineer at Eve's online) wrote in an article
+Eve Online's is a space-based MMORPG game published by CCP Games in May 2003. On the 5th of December 2007, they released a patch "Eve Online: Trinity" which caused some big troubles in many computers and made them unable to boot anymore. How an online game broke the boot of windows ? In an article, Dr. Erlendur S (software engineer at Eve's online) wrote :
 
 > we started receiving reports that [...] content upgrade was causing problems to players by deleting the file C:\boot.ini, which is a Windows system startup file. In some cases the computer was not able to recover on the next startup and would not start until the file had been fixed.
 
